@@ -1,0 +1,32 @@
+{% macro paginationNav(pagination, page) %}
+<nav aria-labelledby="pagination-label">
+  <h2 id="pagination-label" class="visually-hidden">Paginación</h2>
+  <ol class="pagination-list">
+    {% if page.url != pagination.href.first %}
+      <li class="pagination-item">
+        <a href="{{ pagination.href.first }}" class="pagination-link">Primera</a>
+      </li>
+      <li class="pagination-item">
+        <a href="{{ pagination.href.previous }}" class="pagination-link">Anterior</a>
+      </li>
+    {% endif %}
+    {%- for pageEntry in pagination.pages %}
+    <li class="pagination-item">
+      <a href="{{ pagination.hrefs[ loop.index0 ] }}"
+         class="pagination-link{% if page.url == pagination.hrefs[ loop.index0 ] %} current-page{% endif %}"
+         {% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}>
+        {{ loop.index }}
+      </a>
+    </li>
+    {%- endfor %}
+    {% if page.url != pagination.href.last %}
+      <li class="pagination-item">
+        <a href="{{ pagination.href.next }}" class="pagination-link">Siguiente</a>
+      </li>
+      <li class="pagination-item">
+        <a href="{{ pagination.href.last }}" class="pagination-link">Última</a>
+      </li>
+    {% endif %}
+  </ol>
+</nav>
+{% endmacro %}
