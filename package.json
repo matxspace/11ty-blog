@@ -1,0 +1,16 @@
+{
+  "name": "11ty-blog",
+  "version": "1.0.0",
+  "description": "Files for the Mat X Space Blog! Based on [this repo](https://github.com/kevin-powell/JAMStack-blog-starter).",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

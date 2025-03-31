@@ -5,17 +5,17 @@
   --fs-600: 1.875rem;
   --fs-700: 2rem;
 
-  --ff-body: "Roboto", sans-serif;
-  --ff-heading: "Playfair Display", serif;
+  --ff-body: "PT Sans", sans-serif;
+  --ff-heading: "Montserrat", sans-serif;
 
   --fw-400: 400;
   --fw-700: 700;
   --fw-900: 900;
 
-  --clr-primary-200: hsla(169, 70%, 95%, 1);
-  --clr-primary-300: hsla(169, 100%, 39%, 1);
-  --clr-primary-400: hsla(169, 100%, 26%, 1);
-  --clr-primary-500: hsla(169, 100%, 16%, 1);
+  --clr-primary-200: #F2F2F2;
+  --clr-primary-300: #21A2BF;
+  --clr-primary-400: #3B82BF;
+  --clr-primary-500: #16498C;
 
   --clr-neutral-100: hsla(0, 0%, 100%, 1);
   --clr-neutral-300: hsla(0, 0%, 50%, 1);
@@ -384,4 +384,75 @@ section,
 .btn--neutral:focus {
   color: var(--clr-neutral-100);
   background-color: var(--clr-neutral-900);
+}
+
+/* //////////////////////
+  Pagination
+  /////////////////////// */
+
+.pagination-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 1rem 0;
+  margin: 0;
+  gap: 0.5rem;
+}
+.pagination-link,
+.pagination-disabled {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: var(--clr-primary-400);
+  border: 1px solid var(--clr-primary-200);
+  border-radius: 4px;
+}
+.pagination-link.current-page {
+  background-color: var(--clr-primary-400);
+  color: var(--clr-primary-200);
+  border-color: var(--clr-primary-400);
+}
+.pagination-link:hover:not(.current-page) {
+  background-color: var(--clr-primary-200);
+}
+.pagination-disabled {
+  color: var(--clr-neutral-300);
+  border-color: var(--clr-primary-200);
+  cursor: not-allowed;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* //////////////////////
+  Logo
+  /////////////////////// */
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.company-name {
+  font-family: var(--ff-heading);
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: var(--clr-neutral-900);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.logo {
+  width: 64px;
+  height: auto;
 }

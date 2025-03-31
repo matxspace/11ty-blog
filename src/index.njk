@@ -1,0 +1,24 @@
+---
+title: Inicio
+layout: 'base.njk'
+pagination:
+  data: collections.post
+  size: 5
+---
+
+{% import './macros/pagination.njk' as macros %}
+
+<div class="section container">
+<h1 class="section-title">Últimos artículos</h1>
+
+{{ macros.paginationNav(pagination, page) }}
+<ul role="list" class="articles__list flow">
+
+  {%- for post in pagination.items | reverse -%}
+    {% include 'article-snippet.njk' %}
+  {%- endfor %} 
+ 
+</ul>
+{{ macros.paginationNav(pagination, page) }}
+
+</div>
