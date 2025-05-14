@@ -14,7 +14,7 @@ tags:
   - México
   - Samara
   - CubeSAT.
-image: /assets/blog/banner2.jpg
+image: /assets/blog/banner-samara.jpg
 imageAlt: Ivan Galaviz, posando frente a la Universidad de Samara
 ---
 ## De México a Samara: Mi Aventura Espacial
