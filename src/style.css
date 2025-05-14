@@ -297,9 +297,14 @@ section,
 
 .snippet__image {
   grid-area: image;
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+  max-height: 720px;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
 }
 .snippet__title {
   grid-area: title;
@@ -341,7 +346,7 @@ section,
       "button image";
     grid-column-gap: 4em;
     grid-template-columns: 1fr 40%;
-    grid-template-rows: min-content min-content min-content 1fr;
+    align-items: start;
   }
 }
 
