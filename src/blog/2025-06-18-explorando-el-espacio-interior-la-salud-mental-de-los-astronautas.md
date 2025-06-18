@@ -1,5 +1,5 @@
 ---
-title: "Explorando el espacio interior: la salud mental de los astronautas"
+title: "Explorando el espacio interior: La salud mental de los astronautas"
 description: Explorar el espacio es una hazaña que desafía no solo los límites
   físicos, sino también los mentales. En este artículo, exploraremos el
   fascinante mundo de los astronautas y cómo enfrentan desafíos únicos para
