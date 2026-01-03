@@ -14,17 +14,51 @@
         return localStorage.getItem(STORAGE_KEY);
     }
 
-    // Load Microsoft Clarity tracking script
-    function loadClarityScript() {
+    // Load Microsoft Clarity tracking script with onload callback
+    function loadClarityScript(onLoadCallback) {
         if (window.clarity) {
-            return; // Already loaded
+            if (onLoadCallback && typeof onLoadCallback === 'function') {
+                onLoadCallback();
+            }
+            return;
         }
 
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            t=l.createElement(r);
+            t.async=1;
+            t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+            t.onload = function() {
+                if (onLoadCallback && typeof onLoadCallback === 'function') {
+                    onLoadCallback();
+                }
+            };
+            y=l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", CLARITY_PROJECT_ID);
+    }
+
+    // Set Clarity consent using ConsentV2 API
+    function setClarityConsent(analyticsGranted) {
+        if (typeof window.clarity !== 'function') {
+            console.warn('Clarity not loaded yet, cannot set consent');
+            return;
+        }
+
+        window.clarity('consentv2', {
+            ad_Storage: "denied",
+            analytics_Storage: analyticsGranted ? "granted" : "denied"
+        });
+    }
+
+    // Erase Clarity cookies and reset tracking
+    function eraseClarityData() {
+        if (typeof window.clarity !== 'function') {
+            console.warn('Clarity not loaded yet, cannot erase data');
+            return;
+        }
+
+        window.clarity('consent', false);
     }
 
     // Save consent choice to localStorage
@@ -35,13 +69,23 @@
     // Handle accept button click
     function handleAccept() {
         saveConsent('accepted');
-        loadClarityScript();
+
+        loadClarityScript(function() {
+            setClarityConsent(true);
+        });
+
         hideBanner();
     }
 
     // Handle reject button click
     function handleReject() {
         saveConsent('rejected');
+
+        loadClarityScript(function() {
+            eraseClarityData();
+            setClarityConsent(false);
+        });
+
         hideBanner();
     }
 
@@ -109,13 +153,18 @@
     function init() {
         const consent = checkConsent();
 
-        if (consent === 'accepted') {
-            loadClarityScript();
-        } else if (consent === null) {
-            // No consent given yet, show banner
-            showBanner();
-        }
-        // If consent is 'rejected', do nothing (no banner, no tracking)
+        const onClarityReady = function() {
+            if (consent === 'accepted') {
+                setClarityConsent(true);
+            } else if (consent === 'rejected') {
+                eraseClarityData();
+                setClarityConsent(false);
+            } else {
+                showBanner();
+            }
+        };
+
+        loadClarityScript(onClarityReady);
     }
 
     // Initialize when DOM is ready
